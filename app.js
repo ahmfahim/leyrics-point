@@ -7,9 +7,21 @@ const searchSongs = () => {
         .then(data => displaySongs(data.data));
 }
 
+//  async way
+// const searchSongs =async() => {
+//     const searchText = document.getElementById('search-field').value;
+//     const api = `https://api.lyrics.ovh/suggest/${searchText}`
+//     // load data from api
+//     const res =await fetch(api);
+//     const data =await res.json();
+//     displaySongs(data.data);
+// }
+
+
 const displaySongs = (songs) => {
     console.log(songs)
     const songContainer = document.getElementById('song-container');
+    songContainer.innerHTML = '';
     songs.forEach(song => {
         const songDiv = document.createElement('div');
         songDiv.className = "single-result row align-items-center my-3 p-3";
@@ -32,15 +44,23 @@ const displaySongs = (songs) => {
 
 // get lyric
 
-const getLyric =(artist, title) =>{
+const getLyric = (artist, title) => {
     const api = `https://api.lyrics.ovh/v1/${artist}/${title}`
     fetch(api)
-    .then(res => res.json())
-    .then(data => displayLyrics(data.lyrics))
+        .then(res => res.json())
+        .then(data => displayLyrics(data.lyrics))
 }
 
+// asyn way
+// const getLyric = async (artist, title) => {
+//     const api = `https://api.lyrics.ovh/v1/${artist}/${title}`
+//     const res = await fetch(api)
+//     const data =await res.json()
+//     displayLyrics(data.lyrics);
+// }
+
 // display lyric
-const displayLyrics = (lyrics) =>{
+const displayLyrics = (lyrics) => {
     const lyricsDiv = document.getElementById('song-lyrics');
     lyricsDiv.innerText = lyrics;
 }
