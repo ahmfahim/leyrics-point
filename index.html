@@ -50,10 +50,16 @@
                     <button onclick="searchSongs()" class="btn btn-success search-btn">Search</button>
                 </div>
             </div>
-            <!-- Single Lyrics -->
-            <div id="song-lyrics" class="single-lyrics text-center">
-                
+
+            <!-- loading spinner -->
+            <div class="d-flex justify-content-center">
+                <div id="loading" class="spinner-grow text-warning d-none" role="status">
+                    <span class="visually-hidden"></span>
+                </div>
             </div>
+            <!-- Single Lyrics -->
+            <div id="song-lyrics" class="single-lyrics text-center"></div>
+            <!-- display song list -->
             <div id="song-container" class="search-result col-md-8 mx-auto py-4"></div>
         </main>
     </div>

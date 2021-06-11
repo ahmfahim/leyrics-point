@@ -1,10 +1,11 @@
 const searchSongs = () => {
     const searchText = document.getElementById('search-field').value;
     const api = `https://api.lyrics.ovh/suggest/${searchText}`
+    displaySpinner()
     // load data from api
     fetch(api)
         .then(res => res.json())
-        .then(data => displaySongs(data.data));
+        .then(data => displaySongs(data.data))
 }
 
 //  async way
@@ -17,7 +18,7 @@ const searchSongs = () => {
 //     displaySongs(data.data);
 // }
 
-
+// display songs
 const displaySongs = (songs) => {
     console.log(songs)
     const songContainer = document.getElementById('song-container');
@@ -30,7 +31,6 @@ const displaySongs = (songs) => {
             <h3 class="lyrics-name">${song.title}</h3>
             <p class="author lead">Album by <span>${song.artist.name}</span></p>
             <audio controls>
-                <source src="${song.preview}" type="audio/ogg">
                 <source src="${song.preview}" type="audio/mpeg">
             </audio>
         </div>
@@ -39,6 +39,7 @@ const displaySongs = (songs) => {
         </div>
         `;
         songContainer.appendChild(songDiv);
+        displaySpinner();
     });
 }
 
@@ -46,12 +47,14 @@ const displaySongs = (songs) => {
 
 const getLyric = (artist, title) => {
     const api = `https://api.lyrics.ovh/v1/${artist}/${title}`
+    displaySpinner()
     fetch(api)
         .then(res => res.json())
         .then(data => displayLyrics(data.lyrics))
+   
 }
 
-// asyn way
+// async way
 // const getLyric = async (artist, title) => {
 //     const api = `https://api.lyrics.ovh/v1/${artist}/${title}`
 //     const res = await fetch(api)
@@ -60,7 +63,20 @@ const getLyric = (artist, title) => {
 // }
 
 // display lyric
+
 const displayLyrics = (lyrics) => {
     const lyricsDiv = document.getElementById('song-lyrics');
     lyricsDiv.innerText = lyrics;
+    displaySpinner();
+}
+
+// display spinner
+
+const displaySpinner = () =>{
+    const loadDiv = document.getElementById('loading');
+    const songs = document.getElementById('song-container');
+    const lyrics = document.getElementById('song-lyrics');
+    loadDiv.classList.toggle('d-none');
+    songs.classList.toggle('d-none');
+    lyrics.classList.toggle('d-none');
 }
